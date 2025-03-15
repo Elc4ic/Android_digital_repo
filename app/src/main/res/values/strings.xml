@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Digital_kaf</string>
+
+    <!--Welcome Screen-->
+    <string name="welcome_main_text">Пожалуй, лучший фитнес трекер в ДВФУ</string>
+    <string name="welcome_sub_text">Созданный студентами</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="already_account">Уже есть аккаунт?</string>
+
+    <!--Sign Screen-->
+    <string name="topbar_sign">Регистрация</string>
+    <string name="login">Логин</string>
+    <string name="nickname">Имя или никнейм</string>
+    <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="male">Мужчина</string>
+    <string name="female">Женщина</string>
+    <string name="other">Другое</string>
+    <string name="user_agreement">Нажимая на кнопку, вы соглашаетесь
+        с политикой конфиденциальности и обработки персональных данных, а также принимаете пользовательское соглашение
+    </string>
+
+    <!--Login Screen-->
+    <string name="topbar_log_in">Вход</string>
+    <string name="enter">Войти</string>
+
 </resources>
