@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             Digital_kafTheme {
-                NavHost(navController, startDestination = NavItem.Login.route) {
+                NavHost(navController, startDestination = NavItem.Welcome.route) {
                     composable(NavItem.Welcome.route) {
                         WelcomeScreen(navController)
                     }

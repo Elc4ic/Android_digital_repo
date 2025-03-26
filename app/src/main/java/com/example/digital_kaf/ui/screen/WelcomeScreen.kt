@@ -19,11 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.digital_kaf.R
 import com.example.digital_kaf.domain.NavItem
+import com.example.digital_kaf.ui.components.PrimaryButton
 import com.example.digital_kaf.ui.theme.Typography
 
 @Composable
@@ -35,11 +37,12 @@ fun WelcomeScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    .padding(padding)
+                    .padding(16.dp),
             ) {
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(3f)
                         .fillMaxWidth()
                 ) {
                     Image(
@@ -51,23 +54,26 @@ fun WelcomeScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 Box(
                     modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
+                        .weight(2f)
+                        .fillMaxWidth(),
                 ) {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
                             stringResource(R.string.welcome_main_text),
                             style = Typography.titleLarge,
+                            textAlign = TextAlign.Center
                         )
                         Text(
                             stringResource(R.string.welcome_sub_text),
-                            style = Typography.bodyMedium,
+                            style = Typography.labelLarge,
                         )
-                        ElevatedButton(
-                            onClick = { navController?.navigate(NavItem.Registration.route) }
+                        PrimaryButton(
+                            onClick = { navController?.navigate(NavItem.Registration.route) },
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
                                 stringResource(R.string.sign_up),
