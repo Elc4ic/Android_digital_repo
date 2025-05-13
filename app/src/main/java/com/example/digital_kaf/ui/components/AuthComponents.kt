@@ -3,10 +3,8 @@ package com.example.digital_kaf.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
@@ -15,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.digital_kaf.domain.entities.Gender
 import com.example.digital_kaf.ui.theme.Typography
 import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
@@ -92,12 +91,12 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.isMale.value,
+                checked = vm.gender.value == Gender.MALE,
                 onCheckedChange = {
-                    vm.setGender(it, true, false, false)
+                    vm.setGender(Gender.MALE)
                 }
             )
-            Text(text = "Мужской",style = Typography.bodySmall)
+            Text(text = "Мужской", style = Typography.bodySmall)
         }
 
         Row(
@@ -106,12 +105,12 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.isFemale.value,
+                checked = vm.gender.value == Gender.FEMALE,
                 onCheckedChange = {
-                    vm.setGender(it, false, true, false)
+                    vm.setGender(Gender.FEMALE)
                 }
             )
-            Text(text = "Женский",style = Typography.bodySmall)
+            Text(text = "Женский", style = Typography.bodySmall)
         }
 
         Row(
@@ -120,12 +119,12 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.isOther.value,
+                checked = vm.gender.value == Gender.OTHER,
                 onCheckedChange = {
-                    vm.setGender(it, false, false, true)
+                    vm.setGender(Gender.OTHER)
                 }
             )
-            Text(text = "Другое",style = Typography.bodySmall)
+            Text(text = "Другое", style = Typography.bodySmall)
         }
     }
 }

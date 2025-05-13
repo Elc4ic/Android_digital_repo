@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -24,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.digital_kaf.R
-import com.example.digital_kaf.domain.NavItem
 import com.example.digital_kaf.ui.components.PrimaryButton
 import com.example.digital_kaf.ui.theme.Typography
 
@@ -72,7 +70,7 @@ fun WelcomeScreen(
                             style = Typography.labelLarge,
                         )
                         PrimaryButton(
-                            onClick = { navController?.navigate(NavItem.Registration.route) },
+                            onClick = { navController?.navigate(Route.Registration.route) },
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
@@ -81,7 +79,7 @@ fun WelcomeScreen(
                             )
                         }
                         TextButton(
-                            onClick = { navController?.navigate(NavItem.Login.route) }
+                            onClick = { navController?.navigate(Route.Login.route) }
                         ) {
                             Text(
                                 stringResource(R.string.already_account),

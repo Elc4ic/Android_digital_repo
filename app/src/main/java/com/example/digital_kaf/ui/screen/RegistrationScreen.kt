@@ -2,10 +2,8 @@ package com.example.digital_kaf.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.digital_kaf.R
-import com.example.digital_kaf.domain.NavItem
 import com.example.digital_kaf.ui.components.PrimaryButton
 import com.example.digital_kaf.ui.components.TopBarWithBackArrow
 import com.example.digital_kaf.ui.components.genderSector
@@ -33,9 +30,8 @@ import com.example.digital_kaf.viewmodel.RegistrationViewModel
 @Composable
 fun RegistrationScreen(
     navController: NavController? = null,
-    vm: RegistrationViewModel = viewModel()
+    vm: RegistrationViewModel = viewModel(),
 ) {
-    var checked by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopBarWithBackArrow(
@@ -58,7 +54,7 @@ fun RegistrationScreen(
                 genderSector(vm)
                 PrimaryButton(
                     onClick = {
-                        navController?.navigate(NavItem.Home.route)
+                        if (vm.register()) navController?.navigate(Route.Activities.route)
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = vm.isEnabledRegisterButton.value

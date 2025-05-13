@@ -2,31 +2,38 @@ package com.example.digital_kaf.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.digital_kaf.domain.entities.Gender
+import com.example.digital_kaf.domain.entities.User
+import com.example.digital_kaf.domain.repository.RegistrationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.UUID
+import javax.inject.Inject
 
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
+    private val repo: RegistrationRepository,
+) : ViewModel() {
 
-class RegistrationViewModel : ViewModel() {
+    val login = mutableStateOf("")
+    val loginErr = mutableStateOf("")
 
-    val login = mutableStateOf<String>("")
-    val loginErr = mutableStateOf<String>("")
+    val password = mutableStateOf("")
+    val passwordErr = mutableStateOf("")
 
-    val password = mutableStateOf<String>("")
-    val passwordErr = mutableStateOf<String>("")
+    val repeatPassword = mutableStateOf("")
+    val repeatPasswordErr = mutableStateOf("")
 
-    val repeatPassword = mutableStateOf<String>("")
-    val repeatPasswordErr = mutableStateOf<String>("")
+    val nickname = mutableStateOf("")
 
-    val nickname = mutableStateOf<String>("")
+    val gender = mutableStateOf<Gender?>(null)
 
-    val isMale = mutableStateOf<Boolean>(false)
-    val isFemale = mutableStateOf<Boolean>(false)
-    val isOther = mutableStateOf<Boolean>(false)
-
-    var isEnabledRegisterButton = mutableStateOf<Boolean>(false)
-    var isEnabledLoginButton = mutableStateOf<Boolean>(false)
+    var isEnabledRegisterButton = mutableStateOf(false)
+    var isEnabledLoginButton = mutableStateOf(false)
 
 
     fun validateLogin() {
         if (login.value.length < 6) loginErr.value = "Login already exists"
+        else if (repo.validateLogin(login.value)) loginErr.value = "Login is repeated"
         else loginErr.value = ""
         enabledRegisterButton()
         enabledLoginButton()
@@ -45,20 +52,8 @@ class RegistrationViewModel : ViewModel() {
         enabledRegisterButton()
     }
 
-    fun setGender(value: Boolean, m: Boolean, f: Boolean, o: Boolean) {
-        if (m) {
-            isMale.value = value
-            isFemale.value = false
-            isOther.value = false
-        } else if (f) {
-            isMale.value = false
-            isFemale.value = value
-            isOther.value = false
-        } else if (o) {
-            isMale.value = false
-            isFemale.value = false
-            isOther.value = value
-        }
+    fun setGender(value: Gender) {
+        gender.value = value
         enabledRegisterButton()
     }
 
@@ -67,11 +62,23 @@ class RegistrationViewModel : ViewModel() {
                 && nickname.value.isNotEmpty()
                 && repeatPassword.value.isNotEmpty()
                 && password.value.isNotEmpty()
-                && (isMale.value || isFemale.value || isOther.value)
+                && gender.value != null
     }
 
     fun enabledLoginButton() {
         isEnabledLoginButton.value = login.value.isNotEmpty() && password.value.isNotEmpty()
     }
 
+    fun register() =
+        repo.register(
+            User(
+                UUID.randomUUID(),
+                login.value,
+                nickname.value,
+                password.value,
+                gender.value?.name ?: Gender.OTHER.name
+            )
+        )
+
+    fun login() = repo.login(login.value, password.value,)
 }
