@@ -68,7 +68,7 @@ fun LoginScreen(
                         passwordField(vm)
                         PrimaryButton(
                             onClick = {
-                                if (vm.login()) navController?.navigate(Route.Activities.route)
+                                if (vm.login()) navController?.navigate(Routes.Activities.route)
                             },
                             modifier = Modifier.fillMaxWidth(),
                             enabled = vm.isEnabledLoginButton.value

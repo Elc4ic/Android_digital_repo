@@ -21,7 +21,7 @@ class ActivityViewModel
 ) : ViewModel() {
     val activity: StateFlow<Activity?> =
         repo
-            .watchOne(initialStationId)
+            .getOne(initialStationId)
             .catch { e ->
                 Timber.e(e)
                 _errorState.value = e.toString()

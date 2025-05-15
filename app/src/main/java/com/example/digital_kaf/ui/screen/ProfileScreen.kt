@@ -20,6 +20,7 @@ import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
 @Composable
 fun ProfileScreen(
+    navController: NavController? = null,
     vm: RegistrationViewModel = viewModel(),
 ) {
     Scaffold(

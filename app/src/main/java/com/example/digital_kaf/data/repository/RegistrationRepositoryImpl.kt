@@ -21,4 +21,5 @@ class RegistrationRepositoryImpl @Inject constructor(
     override fun validateLogin(login: String): Boolean {
         return true
     }
+
 }

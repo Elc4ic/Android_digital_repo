@@ -1,48 +1,18 @@
 package com.example.digital_kaf.ui.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.digital_kaf.ui.screen.Route
+import com.example.digital_kaf.ui.screen.Routes
 import com.example.digital_kaf.ui.theme.primary
-
-data class NavBarItem(val icon: ImageVector, val label: String, val route: String)
-
-
-val BottomNavItems = listOf(
-    NavBarItem(
-        label = "Activities",
-        icon = Icons.Filled.Search,
-        route = Route.Activities.route
-    ),
-    NavBarItem(
-        label = "Profile",
-        icon = Icons.Filled.Person,
-        route = Route.Profile.route
-    )
-)
-
-@Composable
-fun ScaffoldWithNavBar(
-    navController: NavController,
-    content: @Composable (() -> Unit),
-) {
-    Scaffold(
-        bottomBar = { BottomBarNavigation(navController) },
-        content = { content }
-    )
-}
 
 @Composable
 fun BottomBarNavigation(navController: NavController) {
@@ -50,20 +20,20 @@ fun BottomBarNavigation(navController: NavController) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
-        BottomNavItems.forEach { navItem ->
+        Routes.bottomNavItems.forEach {
             NavigationBarItem(
-                selected = currentRoute == navItem.route,
+                selected = currentRoute == it.route,
                 onClick = {
-                    navController.navigate(navItem.route)
+                    navController.navigate(it.route) {
+                        launchSingleTop = true
+                        restoreState = true
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                    }
                 },
-                icon = {
-                    Icon(imageVector = navItem.icon, contentDescription = navItem.label)
-                },
-                label = {
-                    Text(text = navItem.label)
-                },
-                alwaysShowLabel = false,
-
+                icon = { Icon(imageVector = it.icon, contentDescription = it.label) },
+                label = { Text(text = it.label) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color.White,
                     unselectedIconColor = Color.White,

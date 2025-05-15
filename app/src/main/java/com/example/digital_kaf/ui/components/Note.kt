@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.digital_kaf.data.TimeParser
 import com.example.digital_kaf.domain.entities.Activity
 import com.example.digital_kaf.ui.theme.Typography
 import com.example.digital_kaf.ui.theme.dark
@@ -31,7 +32,6 @@ import java.util.UUID
 @Composable
 fun ActivityCard(activity: Activity, onClick: () -> Unit) {
     val duration = activity.endTime - activity.startTime
-    val back = System.currentTimeMillis() - activity.endTime
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,11 +40,13 @@ fun ActivityCard(activity: Activity, onClick: () -> Unit) {
         shape = RoundedCornerShape(4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text("${activity.distance} км", style = Typography.titleMedium)
-            Text("$duration", style = Typography.bodyMedium)
+            Text(TimeParser.getDuration(duration), style = Typography.bodyMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -58,7 +60,7 @@ fun ActivityCard(activity: Activity, onClick: () -> Unit) {
                         tint = dark
                     )
                 }
-                Text("$back назад", style = Typography.labelMedium)
+                Text(TimeParser.timeBack(activity.endTime), style = Typography.labelMedium)
             }
         }
     }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +53,7 @@ fun RegistrationScreen(
                 genderSector(vm)
                 PrimaryButton(
                     onClick = {
-                        if (vm.register()) navController?.navigate(Route.Activities.route)
+                        if (vm.register()) navController?.navigate(Routes.Activities.route)
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = vm.isEnabledRegisterButton.value

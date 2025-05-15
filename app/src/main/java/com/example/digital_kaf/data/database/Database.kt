@@ -11,6 +11,7 @@ import javax.inject.Singleton
 @Database(entities = [Activity::class, User::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
+
     abstract fun activityDao(): ActivityDao
 
     abstract fun userDao(): UserDao

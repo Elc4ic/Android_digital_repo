@@ -31,14 +31,14 @@ class ActivityListViewModel @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val pages: StateFlow<PagingData<Activity>> =
+    val pages: StateFlow<List<Activity>> =
         my
-            .flatMapLatest { repository.watchPages(it).cachedIn(viewModelScope) }
+            .flatMapLatest { repository.getAll(it) }
             .catch { e ->
                 Timber.e(e)
                 _errorState.value = e.toString()
             }
-            .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     private val _errorState = MutableStateFlow<String?>(null)
     val error: StateFlow<String?>

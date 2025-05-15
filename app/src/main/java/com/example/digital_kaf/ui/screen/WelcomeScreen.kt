@@ -70,7 +70,7 @@ fun WelcomeScreen(
                             style = Typography.labelLarge,
                         )
                         PrimaryButton(
-                            onClick = { navController?.navigate(Route.Registration.route) },
+                            onClick = { navController?.navigate(Routes.Registration.route) },
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
@@ -79,7 +79,7 @@ fun WelcomeScreen(
                             )
                         }
                         TextButton(
-                            onClick = { navController?.navigate(Route.Login.route) }
+                            onClick = { navController?.navigate(Routes.Login.route) }
                         ) {
                             Text(
                                 stringResource(R.string.already_account),
