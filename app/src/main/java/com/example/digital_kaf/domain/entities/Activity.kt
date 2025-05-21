@@ -11,9 +11,8 @@ import java.util.UUID
 @Entity(tableName = "activities")
 data class Activity(
     @PrimaryKey val id: UUID,
-    val distance: Int,
+    val distance: Float,
     @ColumnInfo(name = "activity_type") val activityType: String,
-    val description: String,
     @ColumnInfo(name = "start_time") val startTime: Long,
     @ColumnInfo(name = "end_time") val endTime: Long,
     @ColumnInfo(name = "user_id") val userId: UUID,

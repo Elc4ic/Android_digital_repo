@@ -1,12 +1,13 @@
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinKapt)
 }
 
 android {
@@ -20,6 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        //noinspection WrongGradleMethod
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
             arg("room.incremental", "true")
@@ -30,6 +32,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+
+    lint {
+        disable.add("NullSafeMutableLiveData")
     }
 
     buildTypes {
@@ -65,11 +71,19 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.gms.play.services.maps)
+    implementation(libs.play.services.location)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)
 
     // Android KTX
     implementation(libs.core.ktx)
+
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.viewmodel.savedstate)
+    implementation(libs.lifecycle.runtime.compose)
 
     // Dagger Hilt
     implementation(libs.hilt.android)
@@ -101,6 +115,10 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
 
+    // Map
+    implementation(libs.maps.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.android.maps.utils)
 
     // Logging
     implementation(libs.timber)

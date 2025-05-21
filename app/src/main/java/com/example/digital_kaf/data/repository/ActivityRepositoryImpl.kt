@@ -11,7 +11,6 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class ActivityRepositoryImpl
 @Inject constructor(
     private val database: Database,
@@ -32,9 +31,7 @@ class ActivityRepositoryImpl
     }
 
     override fun add(activity: Activity): Boolean {
-        runBlocking {
-            database.activityDao().insert(activity)
-        }
+        database.activityDao().insert(activity)
         return true
     }
 

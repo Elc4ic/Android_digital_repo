@@ -19,6 +19,7 @@ class ActivityViewModel
     repo: ActivityRepository,
     @Assisted initialStationId: String
 ) : ViewModel() {
+
     val activity: StateFlow<Activity?> =
         repo
             .getOne(initialStationId)

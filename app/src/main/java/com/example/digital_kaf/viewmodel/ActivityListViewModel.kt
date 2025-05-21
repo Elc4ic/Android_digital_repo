@@ -19,21 +19,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ActivityListViewModel @Inject constructor(
-    private val repository: ActivityRepository,
+    repository: ActivityRepository,
 ) : ViewModel() {
 
-    private val _my = MutableStateFlow(false)
-    val my: StateFlow<Boolean>
-        get() = _my
+    val otherPages: StateFlow<List<Activity>> =
+        repository.getAll(false)
+            .catch { e ->
+                Timber.e(e)
+                _errorState.value = e.toString()
+            }
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-    fun updateTab(s: Boolean) {
-        _my.value = s
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val pages: StateFlow<List<Activity>> =
-        my
-            .flatMapLatest { repository.getAll(it) }
+    val myPages: StateFlow<List<Activity>> =
+        repository.getAll(true)
             .catch { e ->
                 Timber.e(e)
                 _errorState.value = e.toString()

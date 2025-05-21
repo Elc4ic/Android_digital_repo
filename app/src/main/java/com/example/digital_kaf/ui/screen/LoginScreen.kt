@@ -33,9 +33,12 @@ fun LoginScreen(
     navController: NavController?,
     vm: RegistrationViewModel = viewModel(),
 ) {
-
     Scaffold(
-        topBar = { TopBarWithBackArrow(title = stringResource(R.string.topbar_log_in), onBackClick = {}) },
+        topBar = {
+            TopBarWithBackArrow(
+                title = stringResource(R.string.topbar_log_in),
+                onBackClick = {})
+        },
         content = { padding ->
             Column(
                 modifier = Modifier

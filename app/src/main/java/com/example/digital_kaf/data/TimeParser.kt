@@ -55,4 +55,18 @@ object TimeParser {
         timeR -= day * metrics[2]
         return "$day.$month.${year + 1970}"
     }
+
+    fun parseTimer(time: Long): String {
+        var timeR = time
+        val metrics = listOf(2629746000L, 86400000L, 3600000L, 60000L, 1000L)
+        val sb = StringBuilder()
+        for (i in metrics.indices) {
+            val n = timeR / metrics[i]
+            timeR -= n * metrics[i]
+            if (n != 0L) {
+                sb.append("$n:")
+            }
+        }
+        return sb.toString()
+    }
 }

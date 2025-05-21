@@ -18,19 +18,17 @@ import kotlinx.serialization.json.Json
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
-    @Singleton
     @Provides
     fun provideJson() = Json {
         isLenient = true
         ignoreUnknownKeys = true
     }
 
-    @Singleton
     @Provides
     fun provideRoomDatabase(@ApplicationContext context: Context, json: Json): Database {
-        val listConverters = Converters.create(json)
+        val converters = Converters.create(json)
         return Room.databaseBuilder(context, Database::class.java, "cache.db")
-            .addTypeConverter(listConverters)
+            .addTypeConverter(converters)
             .build()
     }
 

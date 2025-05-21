@@ -10,7 +10,8 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
+class RegistrationViewModel @Inject
+constructor(
     private val repo: RegistrationRepository,
 ) : ViewModel() {
 
@@ -47,7 +48,8 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun validateRepeatPassword() {
-        if (password.value != repeatPassword.value) repeatPasswordErr.value = "Passwords don't match"
+        if (password.value != repeatPassword.value) repeatPasswordErr.value =
+            "Passwords don't match"
         else repeatPasswordErr.value = ""
         enabledRegisterButton()
     }
@@ -80,5 +82,5 @@ class RegistrationViewModel @Inject constructor(
             )
         )
 
-    fun login() = repo.login(login.value, password.value,)
+    fun login() = repo.login(login.value, password.value)
 }

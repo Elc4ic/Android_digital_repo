@@ -23,11 +23,11 @@ interface ActivityDao {
     fun getOtherPagingSource(myid: String): List<Activity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(items: List<Activity>)
+    fun insert(items: List<Activity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg items: Activity)
+    fun insert(vararg items: Activity)
 
     @Query("DELETE FROM activities")
-    suspend fun clear()
+    fun clear()
 }

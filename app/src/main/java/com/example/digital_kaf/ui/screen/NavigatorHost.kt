@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -20,6 +21,8 @@ import androidx.navigation.navArgument
 import com.example.digital_kaf.ui.components.BottomBarNavigation
 import com.example.digital_kaf.viewmodel.ActivityViewModel
 import com.example.digital_kaf.viewmodel.ActivityViewModel.Companion.provideFactory
+import com.example.digital_kaf.viewmodel.AddViewModel
+import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
 
 sealed class Routes(val route: String) {
@@ -66,6 +69,7 @@ fun NavigatorHost(
             }
         }
     ) { paddingValues ->
+
         NavHost(
             navController = navController,
             startDestination = Routes.Login.route,
@@ -73,11 +77,29 @@ fun NavigatorHost(
         ) {
             //NoNavBar
             composable(Routes.Welcome.route) { WelcomeScreen(navController) }
-            composable(Routes.Login.route) { LoginScreen(navController) }
-            composable(Routes.Registration.route) { RegistrationScreen(navController) }
+            composable(Routes.Login.route) {
+                LoginScreen(
+                    navController,
+                    hiltViewModel<RegistrationViewModel>()
+                )
+            }
+            composable(Routes.Registration.route) {
+                RegistrationScreen(
+                    navController,
+                    hiltViewModel<RegistrationViewModel>()
+                )
+            }
+            composable(Routes.Add.route) {
+                AddScreen(navController, hiltViewModel<AddViewModel>())
+            }
             //WithNavBar
             composable(Routes.Activities.route) { MainScreen(navController) }
-            composable(Routes.Profile.route) { ProfileScreen(navController) }
+            composable(Routes.Profile.route) {
+                ProfileScreen(
+                    navController,
+                    hiltViewModel<RegistrationViewModel>()
+                )
+            }
             composable(
                 Routes.Note("{id}").route,
                 arguments = listOf(navArgument("id") { type = NavType.StringType }),

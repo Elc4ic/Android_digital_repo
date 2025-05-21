@@ -14,10 +14,8 @@ import jakarta.inject.Singleton
 @InstallIn(SingletonComponent::class)
 interface DomainModule {
     @Binds
-    @Singleton
     fun bindActivityRepository(repository: ActivityRepositoryImpl): ActivityRepository
 
     @Binds
-    @Singleton
     fun bindRegistrationRepository(repository: RegistrationRepositoryImpl): RegistrationRepository
 }

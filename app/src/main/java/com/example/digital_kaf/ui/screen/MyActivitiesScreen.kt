@@ -19,7 +19,7 @@ fun MyActivitiesScreen(
     viewModel: ActivityListViewModel = viewModel(),
 ) {
     val context = LocalContext.current
-    val activities = viewModel.pages.collectAsState()
+    val activities = viewModel.myPages.collectAsState()
     val error by viewModel.error.collectAsState()
     val lazyListState = rememberLazyListState()
 
