@@ -6,10 +6,11 @@ coroutines = "1.10.2"
 core-ktx = "1.16.0"
 lifecycle = "2.8.7"
 hilt = "2.54"
+osmdroid-android = "6.1.14"
 room = "2.7.1"
 navigation-compose = "2.9.0"
 activity-compose = "1.10.1"
-compose-bom = "2025.05.00"
+compose-bom = "2025.05.01"
 maps = "6.4.4"
 play-services-maps = "19.0.0"
 timber = "5.0.1"
@@ -24,6 +25,8 @@ material = "1.12.0"
 google-services = "4.4.2"
 play-services-maps-version = "19.2.0"
 play-services-location = "21.3.0"
+play-services-location-version = "21.3.0"
+play-services-phenotype = "17.0.0"
 
 [libraries]
 # Coroutines
@@ -46,15 +49,11 @@ hiltx-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-co
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 
 # Room
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid-android" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-
-# Map
-maps-ktx = { group = "com.google.maps.android", name = "maps-compose", version.ref = "maps" }
-android-maps-utils = { group = "com.google.maps.android", name = "maps-compose-utils", version.ref = "maps" }
-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 
 # Navigation
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
@@ -89,8 +88,8 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-gms-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps-version" }
-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location-version" }
+play-services-phenotype = { group = "com.google.android.gms", name = "play-services-phenotype", version.ref = "play-services-phenotype" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

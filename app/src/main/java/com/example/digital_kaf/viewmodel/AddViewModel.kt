@@ -3,6 +3,7 @@ package com.example.digital_kaf.viewmodel
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Looper
 import androidx.core.content.ContextCompat
@@ -16,7 +17,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -34,13 +34,13 @@ class AddViewModel @Inject constructor(
 
     var step = 0
 
-    private var fusedClient: FusedLocationProviderClient? = null
+    private lateinit var fusedClient: FusedLocationProviderClient
 
     private val _location = MutableStateFlow<Location?>(null)
     var location: MutableStateFlow<Location?> = _location
 
-    private val _pathPoints = MutableStateFlow<List<LatLng>>(emptyList())
-    val pathPoints: StateFlow<List<LatLng>> = _pathPoints
+    private val _pathPoints = MutableStateFlow<List<Location>>(emptyList())
+    val pathPoints: StateFlow<List<Location>> = _pathPoints
 
     private val _distance = MutableStateFlow(0f)
     val distance: StateFlow<Float> = _distance
@@ -52,19 +52,18 @@ class AddViewModel @Inject constructor(
     private var sportType = ""
 
     private var timerJob: Job? = null
-    private var locationCallback: LocationCallback? = null
 
 
     fun startTracking(context: Context) {
         fusedClient = LocationServices.getFusedLocationProviderClient(context)
-        startTime = System.currentTimeMillis()
-        startTimer()
         requestLocationUpdates(context)
     }
 
     fun setType(type: String) {
         sportType = type
         step++
+        startTime = System.currentTimeMillis()
+        startTimer()
     }
 
     fun saveActivity() {
@@ -101,11 +100,12 @@ class AddViewModel @Inject constructor(
                 .setMinUpdateDistanceMeters(2f)
                 .build()
 
-            fusedClient?.requestLocationUpdates(
+            fusedClient.requestLocationUpdates(
                 request,
                 object : LocationCallback() {
                     override fun onLocationResult(result: LocationResult) {
                         result.lastLocation?.let { location.value = it }
+                        _pathPoints.value += result.locations
                     }
                 },
                 Looper.getMainLooper()
@@ -115,7 +115,6 @@ class AddViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        fusedClient?.removeLocationUpdates(locationCallback!!)
         timerJob?.cancel()
     }
 }

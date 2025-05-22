@@ -71,8 +71,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.gms.play.services.maps)
     implementation(libs.play.services.location)
+    implementation(libs.play.services.phenotype)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.kotlinx.coroutines.test)
 
@@ -116,9 +116,7 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
 
     // Map
-    implementation(libs.maps.ktx)
-    implementation(libs.play.services.maps)
-    implementation(libs.android.maps.utils)
+    implementation(libs.osmdroid.android)
 
     // Logging
     implementation(libs.timber)

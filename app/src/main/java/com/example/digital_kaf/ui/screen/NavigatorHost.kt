@@ -35,7 +35,7 @@ sealed class Routes(val route: String) {
     class Note(id: String) : Routes("note/${id}")
 
     companion object {
-        val routes = listOf(Activities, Profile, Note(""))
+        val routes = listOf(Activities, Profile)
 
         data class NavBarItem(val icon: ImageVector, val label: String, val route: String)
 
@@ -72,7 +72,7 @@ fun NavigatorHost(
 
         NavHost(
             navController = navController,
-            startDestination = Routes.Login.route,
+            startDestination = Routes.Welcome.route,
             modifier = modifier.padding(paddingValues),
         ) {
             //NoNavBar

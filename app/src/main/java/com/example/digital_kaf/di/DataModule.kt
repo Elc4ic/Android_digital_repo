@@ -26,10 +26,7 @@ object DataModule {
 
     @Provides
     fun provideRoomDatabase(@ApplicationContext context: Context, json: Json): Database {
-        val converters = Converters.create(json)
-        return Room.databaseBuilder(context, Database::class.java, "cache.db")
-            .addTypeConverter(converters)
-            .build()
+        return Room.databaseBuilder(context, Database::class.java, "cache.db").build()
     }
 
     @Singleton

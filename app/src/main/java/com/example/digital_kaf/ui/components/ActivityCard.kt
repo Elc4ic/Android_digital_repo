@@ -69,9 +69,8 @@ fun ActivityCard(activity: Activity, onClick: () -> Unit) {
 fun NotePreview() {
     val note = Activity(
         id = UUID.randomUUID(),
-        distance = 13,
+        distance = 13f,
         activityType = "cdjcnc",
-        description = "cbdhcbdcd",
         startTime = System.currentTimeMillis() - Duration.ofHours(3).toMillis(),
         endTime = System.currentTimeMillis() - Duration.ofHours(1).toMillis(),
         userId = UUID.randomUUID(),
