@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +21,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.digital_kaf.data.TimeParser
 import com.example.digital_kaf.ui.screen.Routes
+import com.example.digital_kaf.ui.theme.Typography
+import com.example.digital_kaf.ui.theme.primary
 import com.example.digital_kaf.viewmodel.AddViewModel
 
 @Composable
@@ -28,6 +32,7 @@ fun TimerBottomSheet(
 ) {
     val distance by avm.distance.collectAsState()
     val time by avm.timeElapsed.collectAsState()
+    val type by avm.sportType.collectAsState()
 
     Column(
         modifier = Modifier
@@ -36,6 +41,7 @@ fun TimerBottomSheet(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Text(type, style = Typography.titleLarge)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -43,13 +49,14 @@ fun TimerBottomSheet(
             Text("$distance")
             Text(TimeParser.parseTimer(time))
         }
-        IconButton(
+        FloatingActionButton(
             onClick = {
                 avm.saveActivity()
                 navController?.navigate(Routes.Activities.route)
-            }
+            },
+            containerColor = primary
         ) {
-            Icons.Default.Done
+            Icon(Icons.Default.Done, contentDescription = "End")
         }
     }
 }

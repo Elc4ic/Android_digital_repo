@@ -23,7 +23,8 @@ private val DarkColorScheme = darkColorScheme(
     secondary = dark,
     tertiary = grey,
     surface = background,
-    background = background
+    background = background,
+    onBackground = dark
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -32,13 +33,14 @@ private val LightColorScheme = lightColorScheme(
     secondary = dark,
     tertiary = grey,
     surface = background,
-    background = background
+    background = background,
+    onBackground = dark
 )
 
 @Composable
 fun Digital_kafTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

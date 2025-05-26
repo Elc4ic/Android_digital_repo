@@ -3,9 +3,9 @@ package com.example.digital_kaf.domain.repository
 import com.example.digital_kaf.domain.entities.User
 
 interface RegistrationRepository {
-    fun register(user: User): Boolean
+    suspend fun register(user: User)
 
-    fun login(login: String, password: String): Boolean
+    suspend fun login(login: String, password: String): User?
 
-    fun validateLogin(login: String): Boolean
+    suspend fun validateLogin(login: String):Boolean
 }

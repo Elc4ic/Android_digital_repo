@@ -2,6 +2,7 @@ package com.example.digital_kaf.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,7 +28,10 @@ fun ProfileScreen(
         topBar = { ProfileTabBar() },
         content = { paddingValues ->
             Column(
-                modifier = Modifier.padding(paddingValues),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(paddingValues)
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(

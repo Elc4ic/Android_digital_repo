@@ -71,12 +71,15 @@ fun LoginScreen(
                         passwordField(vm)
                         PrimaryButton(
                             onClick = {
-                                if (vm.login()) navController?.navigate(Routes.Activities.route)
+                                vm.login()
+                                if (vm.regUser.value != null) {
+                                    navController?.navigate(Routes.Activities.route)
+                                }
                             },
                             modifier = Modifier.fillMaxWidth(),
                             enabled = vm.isEnabledLoginButton.value
                         ) {
-                            Text(stringResource(R.string.sign_up))
+                            Text(stringResource(R.string.login))
                         }
                     }
                 }

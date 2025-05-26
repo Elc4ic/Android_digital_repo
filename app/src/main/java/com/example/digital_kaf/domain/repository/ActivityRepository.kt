@@ -8,5 +8,5 @@ interface ActivityRepository {
 
     fun getOne(id: String): Flow<Activity>
 
-    fun add(activity: Activity): Boolean
+    suspend fun add(activity: Activity): Boolean
 }

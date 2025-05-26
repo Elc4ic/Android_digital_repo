@@ -58,7 +58,7 @@ object TimeParser {
 
     fun parseTimer(time: Long): String {
         var timeR = time
-        val metrics = listOf(2629746000L, 86400000L, 3600000L, 60000L, 1000L)
+        val metrics = listOf(2629746L, 86400L, 3600L, 60L, 1L)
         val sb = StringBuilder()
         for (i in metrics.indices) {
             val n = timeR / metrics[i]

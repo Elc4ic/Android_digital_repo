@@ -11,7 +11,6 @@ enum class Gender {
 @Entity(tableName = "users")
 data class User(
     @PrimaryKey
-    var id: UUID,
     var login: String = "",
     var nickname: String = "",
     var password: String = "",

@@ -15,6 +15,6 @@ data class Activity(
     @ColumnInfo(name = "activity_type") val activityType: String,
     @ColumnInfo(name = "start_time") val startTime: Long,
     @ColumnInfo(name = "end_time") val endTime: Long,
-    @ColumnInfo(name = "user_id") val userId: UUID,
+    @ColumnInfo(name = "user_id") val userId: String,
     val comment: String
 )

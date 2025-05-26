@@ -17,12 +17,12 @@ import timber.log.Timber
 class ActivityViewModel
 @AssistedInject constructor(
     repo: ActivityRepository,
-    @Assisted initialStationId: String
+    @Assisted activityId: String
 ) : ViewModel() {
 
     val activity: StateFlow<Activity?> =
         repo
-            .getOne(initialStationId)
+            .getOne(activityId)
             .catch { e ->
                 Timber.e(e)
                 _errorState.value = e.toString()
@@ -43,11 +43,11 @@ class ActivityViewModel
     }
 
     companion object {
-        fun AssistedFactory.provideFactory(initialStationId: String): ViewModelProvider.Factory =
+        fun AssistedFactory.provideFactory(activityId: String): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return this@provideFactory.create(initialStationId) as T
+                    return this@provideFactory.create(activityId) as T
                 }
             }
     }

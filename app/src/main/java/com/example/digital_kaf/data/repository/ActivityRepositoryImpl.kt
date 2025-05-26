@@ -23,14 +23,14 @@ class ActivityRepositoryImpl
             } else {
                 database.activityDao().getOtherPagingSource("myid_to_extinct")
             }
-        }.asFlow().flowOn(Dispatchers.Default)
+        }.asFlow()
     }
 
     override fun getOne(id: String): Flow<Activity> {
         return database.activityDao().getById(id)
     }
 
-    override fun add(activity: Activity): Boolean {
+    override suspend fun add(activity: Activity): Boolean {
         database.activityDao().insert(activity)
         return true
     }

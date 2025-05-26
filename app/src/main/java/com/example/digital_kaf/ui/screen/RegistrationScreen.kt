@@ -53,7 +53,11 @@ fun RegistrationScreen(
                 genderSector(vm)
                 PrimaryButton(
                     onClick = {
-                        if (vm.register()) navController?.navigate(Routes.Activities.route)
+                        vm.validateLogin()
+                        if (vm.loginErr.value == "") {
+                            vm.register()
+                            if (vm.regUser.value != null) navController?.navigate(Routes.Activities.route)
+                        }
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = vm.isEnabledRegisterButton.value

@@ -42,7 +42,7 @@ fun passwordField(vm: RegistrationViewModel) {
         label = { Text("Пароль") },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-        isPassword = true
+        isPassword = false
     )
 }
 

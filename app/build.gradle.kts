@@ -117,6 +117,7 @@ dependencies {
 
     // Map
     implementation(libs.osmdroid.android)
+    implementation(libs.accompanist.permissions)
 
     // Logging
     implementation(libs.timber)

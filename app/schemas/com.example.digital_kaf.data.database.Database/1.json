@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a8459f322eff78e36dde387b50a0a222",
+    "identityHash": "d43d9921f7dda86436f1055551078321",
     "entities": [
       {
         "tableName": "activities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `distance` REAL NOT NULL, `activity_type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `end_time` INTEGER NOT NULL, `user_id` BLOB NOT NULL, `comment` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `distance` REAL NOT NULL, `activity_type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `end_time` INTEGER NOT NULL, `user_id` TEXT NOT NULL, `comment` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -41,7 +41,7 @@
           {
             "fieldPath": "userId",
             "columnName": "user_id",
-            "affinity": "BLOB",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -60,14 +60,8 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` BLOB NOT NULL, `login` TEXT NOT NULL, `nickname` TEXT NOT NULL, `password` TEXT NOT NULL, `gender` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `nickname` TEXT NOT NULL, `password` TEXT NOT NULL, `gender` TEXT NOT NULL, PRIMARY KEY(`login`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "BLOB",
-            "notNull": true
-          },
           {
             "fieldPath": "login",
             "columnName": "login",
@@ -96,14 +90,14 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "id"
+            "login"
           ]
         }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8459f322eff78e36dde387b50a0a222')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd43d9921f7dda86436f1055551078321')"
     ]
   }
 }

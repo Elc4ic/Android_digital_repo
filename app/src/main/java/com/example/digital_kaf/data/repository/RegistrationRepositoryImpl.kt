@@ -10,19 +10,17 @@ import javax.inject.Singleton
 class RegistrationRepositoryImpl @Inject constructor(
     private val database: Database,
 ) : RegistrationRepository {
-    override fun register(user: User): Boolean {
-        runBlocking {
-            database.userDao().insert(user)
-        }
-        return true
+
+    override suspend fun register(user: User) {
+        database.userDao().insert(user)
     }
 
-    override fun login(login: String, password: String): Boolean {
-        return true
+    override suspend fun login(login: String, password: String):User? {
+        return database.userDao().login(login, password)
     }
 
-    override fun validateLogin(login: String): Boolean {
-        return true
+    override suspend fun validateLogin(login: String): Boolean {
+        return database.userDao().validateLogin(login) == null
     }
 
 }

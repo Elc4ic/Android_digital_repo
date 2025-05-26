@@ -73,7 +73,7 @@ fun NotePreview() {
         activityType = "cdjcnc",
         startTime = System.currentTimeMillis() - Duration.ofHours(3).toMillis(),
         endTime = System.currentTimeMillis() - Duration.ofHours(1).toMillis(),
-        userId = UUID.randomUUID(),
+        userId = "admin",
         comment = ""
     )
     ActivityCard(activity = note, onClick = {})
