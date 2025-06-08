@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -18,66 +19,71 @@ import com.example.digital_kaf.ui.theme.Typography
 import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
 @Composable
-fun loginField(vm: RegistrationViewModel) {
+fun LoginField(vm: RegistrationViewModel) {
+    val ui = vm.ui.collectAsState()
     PrimaryTextField(
-        value = vm.login.value,
+        value = vm.ui.value.login ?: "",
         onValueChange = {
-            vm.login.value = it
-            vm.validateLogin()
+            vm.setLogin(it)
         },
         label = { Text("Логин") },
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
+        isError = ui.value.loginErr != null
     )
 }
 
 @Composable
-fun passwordField(vm: RegistrationViewModel) {
+fun PasswordField(vm: RegistrationViewModel) {
+    val ui = vm.ui.collectAsState()
     PrimaryTextField(
-        value = vm.password.value,
+        value = vm.ui.value.password ?: "",
         onValueChange = {
-            vm.password.value = it
-            vm.validatePassword()
+            vm.setPassword(it)
         },
         label = { Text("Пароль") },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-        isPassword = false
+        isPassword = false,
+        isError = ui.value.passwordErr != null
     )
 }
 
 @Composable
-fun repeatPasswordField(vm: RegistrationViewModel) {
+fun RepeatPasswordField(vm: RegistrationViewModel) {
+    val ui = vm.ui.collectAsState()
     PrimaryTextField(
-        value = vm.repeatPassword.value,
+        value = vm.ui.value.password ?: "",
         onValueChange = {
-            vm.repeatPassword.value = it
-            vm.validateRepeatPassword()
+            vm.setPasswordRepeat(it)
         },
         label = { Text("Повторите пароль") },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-        isPassword = true
+        isPassword = true,
+        isError = ui.value.passwordRepeatErr != null
     )
 }
 
 
 @Composable
-fun nicknameField(vm: RegistrationViewModel) {
+fun NicknameField(vm: RegistrationViewModel) {
+    val ui = vm.ui.collectAsState()
     PrimaryTextField(
-        value = vm.nickname.value,
+        value = vm.ui.value.password ?: "",
         onValueChange = {
-            vm.nickname.value = it
-            vm.enabledRegisterButton()
+            vm.setNickname(it)
         },
         label = { Text("Имя") },
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+        isError = ui.value.nicknameErr != null,
     )
 }
 
 @Composable
-fun genderSector(vm: RegistrationViewModel) {
+fun GenderSector(vm: RegistrationViewModel) {
+    val ui = vm.ui.collectAsState()
     Column {
         Text(
             text = "Выберите пол:",
@@ -91,7 +97,7 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.gender.value == Gender.MALE,
+                checked = ui.value.gender == Gender.MALE,
                 onCheckedChange = {
                     vm.setGender(Gender.MALE)
                 }
@@ -105,7 +111,7 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.gender.value == Gender.FEMALE,
+                checked = ui.value.gender == Gender.FEMALE,
                 onCheckedChange = {
                     vm.setGender(Gender.FEMALE)
                 }
@@ -119,7 +125,7 @@ fun genderSector(vm: RegistrationViewModel) {
             modifier = Modifier.padding(vertical = 2.dp)
         ) {
             Checkbox(
-                checked = vm.gender.value == Gender.OTHER,
+                checked = ui.value.gender == Gender.OTHER,
                 onCheckedChange = {
                     vm.setGender(Gender.OTHER)
                 }

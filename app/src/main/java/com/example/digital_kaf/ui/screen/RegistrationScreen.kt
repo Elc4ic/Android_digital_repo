@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.digital_kaf.R
+import com.example.digital_kaf.ui.components.GenderSector
+import com.example.digital_kaf.ui.components.LoginField
+import com.example.digital_kaf.ui.components.NicknameField
+import com.example.digital_kaf.ui.components.PasswordField
 import com.example.digital_kaf.ui.components.PrimaryButton
+import com.example.digital_kaf.ui.components.RepeatPasswordField
 import com.example.digital_kaf.ui.components.TopBarWithBackArrow
-import com.example.digital_kaf.ui.components.genderSector
-import com.example.digital_kaf.ui.components.loginField
-import com.example.digital_kaf.ui.components.nicknameField
-import com.example.digital_kaf.ui.components.passwordField
-import com.example.digital_kaf.ui.components.repeatPasswordField
 import com.example.digital_kaf.ui.theme.Typography
 import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
@@ -31,6 +32,8 @@ fun RegistrationScreen(
     navController: NavController? = null,
     vm: RegistrationViewModel = viewModel(),
 ) {
+    val ui = vm.ui.collectAsState()
+
     Scaffold(
         topBar = {
             TopBarWithBackArrow(
@@ -46,21 +49,20 @@ fun RegistrationScreen(
                     .padding(all = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                loginField(vm)
-                nicknameField(vm)
-                passwordField(vm)
-                repeatPasswordField(vm)
-                genderSector(vm)
+                LoginField(vm)
+                NicknameField(vm)
+                PasswordField(vm)
+                RepeatPasswordField(vm)
+                GenderSector(vm)
                 PrimaryButton(
                     onClick = {
-                        vm.validateLogin()
-                        if (vm.loginErr.value == "") {
+                        vm.validateRegister()
+                        if (ui.value.isFormValid) {
                             vm.register()
                             if (vm.regUser.value != null) navController?.navigate(Routes.Activities.route)
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = vm.isEnabledRegisterButton.value
                 ) {
                     Text(stringResource(R.string.sign_up))
                 }

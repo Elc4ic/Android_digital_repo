@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -22,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.digital_kaf.R
+import com.example.digital_kaf.ui.components.LoginField
+import com.example.digital_kaf.ui.components.PasswordField
 import com.example.digital_kaf.ui.components.PrimaryButton
 import com.example.digital_kaf.ui.components.TopBarWithBackArrow
-import com.example.digital_kaf.ui.components.loginField
-import com.example.digital_kaf.ui.components.passwordField
 import com.example.digital_kaf.viewmodel.RegistrationViewModel
 
 @Composable
@@ -33,6 +34,7 @@ fun LoginScreen(
     navController: NavController?,
     vm: RegistrationViewModel = viewModel(),
 ) {
+    val ui = vm.ui.collectAsState()
     Scaffold(
         topBar = {
             TopBarWithBackArrow(
@@ -67,17 +69,19 @@ fun LoginScreen(
                         verticalArrangement = Arrangement.spacedBy(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        loginField(vm)
-                        passwordField(vm)
+                        LoginField(vm)
+                        PasswordField(vm)
                         PrimaryButton(
                             onClick = {
-                                vm.login()
-                                if (vm.regUser.value != null) {
-                                    navController?.navigate(Routes.Activities.route)
+                                vm.validateLogin()
+                                if (ui.value.isFormValid) {
+                                    vm.login()
+                                    if (vm.regUser.value != null) {
+                                        navController?.navigate(Routes.Activities.route)
+                                    }
                                 }
                             },
                             modifier = Modifier.fillMaxWidth(),
-                            enabled = vm.isEnabledLoginButton.value
                         ) {
                             Text(stringResource(R.string.login))
                         }

@@ -31,6 +31,7 @@ fun PrimaryTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier,
     isPassword: Boolean = false,
+    isError: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     var visible by remember { mutableStateOf(false) }
@@ -50,10 +51,11 @@ fun PrimaryTextField(
             focusedLabelColor = primary,
             unfocusedLabelColor = line,
         ),
+        isError = isError,
         visualTransformation = if (visible) PasswordVisualTransformation() else VisualTransformation.None,
         trailingIcon = {
             if (isPassword) {
-                if (visible) {
+                if (!visible) {
                     Icon(
                         imageVector = Icons.Default.AccountBox,
                         contentDescription = "Hide",
